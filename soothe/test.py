@@ -110,6 +110,7 @@ class Test:  # pylint: disable=too-few-public-methods
                 output_filepath,
                 self.params.timeout,
                 self.params.verbose,
+                self.params.keep_files
             )
             result.encode_time = perf_counter() - start
         except TimeoutExpired:

@@ -21,6 +21,7 @@
 
 """Module for Vulkan Video Samples based encoders"""
 
+import os
 import shlex
 import subprocess
 
@@ -107,6 +108,7 @@ class VKVS(Encoder):
             output_file: str,
             timeout: int,
             verbose: bool,
+            keep_files: bool,
     ):
         """Encodes input_file in output_file"""
         encoded_file = f"{output_file}.enc"
@@ -114,6 +116,10 @@ class VKVS(Encoder):
         run_command(shlex.split(enc_cmd), timeout=timeout, verbose=verbose)
         dec_cmd = self._construct_dec_cmd(encoded_file, output_file)
         run_command(shlex.split(dec_cmd), timeout=timeout, verbose=verbose)
+        if not keep_files \
+           and os.path.exists(encoded_file) \
+           and os.path.isfile(encoded_file):
+            os.remove(encoded_file)
 
 
 @register_encoder

@@ -48,6 +48,7 @@ class Encoder(NamedClass):
             output_file: str,
             timeout: int,
             verbose: bool,
+            keep_files: bool,
     ):
         """Encodes input_file in output_file"""
         raise NotImplementedError
