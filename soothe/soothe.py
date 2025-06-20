@@ -33,8 +33,11 @@ from .encoder import ENCODERS
 from .test_suite import TestSuite, Params as TestSuiteParams
 from .utils import get_matches_from_list
 
-# Import decoders that will auto-register
+# Import encoders that will auto-register
 from .encoders import *  # noqa: F401,F403,E501 pylint: disable=wildcard-import disable=unused-wildcard-import
+
+# Import decoders that will auto-register
+from .decoders import *  # noqa: F401,F403,E501 pylint: disable=wildcard-import disable=unused-wildcard-import
 
 
 @dataclass

@@ -36,6 +36,7 @@ class Encoder(NamedClass):
     hw_acceleration: bool = False
     description: str = ""
     binary: str = ""
+    file_extension = ".bin"
 
     def __init__(self) -> None:
         if self.binary:
@@ -65,6 +66,10 @@ class Encoder(NamedClass):
     def name(self) -> str:
         """Encoder's name"""
         return self.encoder_name
+
+    def get_file_extension(self) -> str:
+        """Get the file extension for the encoder output"""
+        return self.file_extension
 
     def __str__(self) -> str:
         return f'{self.encoder_name}: {self.description}'

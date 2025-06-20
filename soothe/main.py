@@ -31,6 +31,7 @@ from .soothe import RunParams, Soothe
 
 APPNAME = "soothe"
 ASSETS_DIR = "assets"
+DECODERS_DIR = "decoders"
 RESOURCES_DIR = "resources"
 OUTPUT_DIR = "soothe_output"
 ENCODERS_DIR = "encoders"
@@ -46,6 +47,7 @@ class Main:  # pylint: disable=too-few-public-methods
     """Main class for Soothe"""
 
     def __init__(self) -> None:
+        self.decoders_dir = DECODERS_DIR
         self.assets_dir = os.path.join(os.path.dirname(__file__), '..',
                                        ASSETS_DIR)
         self.resources_dir = os.path.join(os.path.dirname(__file__), '..',
@@ -53,6 +55,10 @@ class Main:  # pylint: disable=too-few-public-methods
         self.output_dir = os.path.join(gettempdir(), OUTPUT_DIR)
 
         self.args = self._create_argument_parser()
+
+        # Prepend to the PATH the decoders_dir so that we can run them
+        # without having to set the env for every single command
+        os.environ["PATH"] = self.decoders_dir + os.path.pathsep + os.environ["PATH"]
 
     def run(self) -> None:
         """Run Soothe"""

@@ -1,8 +1,8 @@
 # Soothe - testing framework for encoders quality
 # Copyright (C) 2020, Fluendo, S.A.
 #  Author: Pablo Marcos Oltra <pmarcos@fluendo.com>, Fluendo, S.A.
-# Copyright (C) 2025, Igalia, S.L.
-#  Author: Victor Jaquez <vjaquez@igalia.com>
+# Copyright (C) 2026, Igalia, S.L.
+#  Author: Stéphane Cerveau <scerveau@igalia.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public License
@@ -17,29 +17,13 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library. If not, see <https://www.gnu.org/licenses/>.
 
-"""Codec module"""
+"""List of decoders"""
 
-from enum import Enum
+import glob
+import os.path
 
-
-class Codec(Enum):
-    """Codec type"""
-
-    NONE = "None"
-    DUMMY = "Dummy"
-    H264 = "H.264"
-    H265 = "H.265"
-    VP9 = "VP9"
-    AV1 = "AV1"
-
-    def __str__(self) -> str:
-        return self.value
-
-
-class OutputFormat(Enum):
-    """Output format"""
-
-    NONE = "None"
-    YUV420P = "yuv420p"
-    YUV420P10LE = "yuv420p10le"
-    UNKNOWN = "Unknown"
+modules = glob.glob(os.path.join(os.path.dirname(__file__), "*.py"))
+__all__ = [
+    os.path.basename(os.path.splitext(f)[0]) for f in modules
+    if os.path.isfile(f) and not f.endswith("__init__.py")
+]

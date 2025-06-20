@@ -103,6 +103,7 @@ class VKVSH264MainEncoder(VKVS):
     """Vulkan Video samples H.264 Main encoder"""
     codec = Codec.H264
     variant = "main"
+    file_extension = ".h264"
 
 
 @register_encoder
@@ -110,6 +111,7 @@ class VKVSH265MainEncoder(VKVS):
     """VKVS H.265 Main encoder"""
     codec = Codec.H265
     variant = "main"
+    file_extension = ".h265"
 
 
 @register_encoder
@@ -117,3 +119,4 @@ class VKVSAV1MainEncoder(VKVS):
     """VKVS AV1 Main encoder"""
     codec = Codec.AV1
     variant = "main"
+    file_extension = ".ivf"

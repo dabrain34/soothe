@@ -31,8 +31,7 @@ from ..utils import normalize_binary_cmd, run_command
 
 PIPELINE_TPL = "{} --eos-on-shutdown --no-fault filesrc location={} ! "\
     "y4mdec ! videoconvert dither=none ! "\
-    "{} ! decodebin ! "\
-    "videoconvert dither=none ! y4menc ! filesink location={}"
+    "{} ! filesink location={}"
 
 
 class GStreamer(Encoder):
@@ -101,6 +100,7 @@ class GStreamerVaH264MainEncoder(GStreamer):
     encoder_bin = " vah264enc ! video/x-h264, profile=main "
     variant = "main"
     api = "VA"
+    file_extension = ".h264"
 
 
 @register_encoder
@@ -110,6 +110,7 @@ class GStreamerVaH264HighEncoder(GStreamer):
     encoder_bin = " vah264enc ! video/x-h264, profile=high "
     variant = "high"
     api = "VA"
+    file_extension = ".h264"
 
 
 @register_encoder
@@ -119,6 +120,7 @@ class GStreamerVaH264ConstrainedEncoder(GStreamer):
     encoder_bin = " vah264enc ! video/x-h264, profile=constrained-baseline "
     variant = "constrained-baseline"
     api = "VA"
+    file_extension = ".h264"
 
 
 @register_encoder
@@ -128,6 +130,7 @@ class GStreamerVaH264LpMainEncoder(GStreamer):
     encoder_bin = " vah264lpenc ! video/x-h264, profile=main "
     variant = "lp-main"
     api = "VA"
+    file_extension = ".h264"
 
 
 @register_encoder
@@ -137,6 +140,7 @@ class GStreamerVaH264LpHighEncoder(GStreamer):
     encoder_bin = " vah264lpenc ! video/x-h264, profile=high "
     variant = "lp-high"
     api = "VA"
+    file_extension = ".h264"
 
 
 @register_encoder
@@ -146,6 +150,7 @@ class GStreamerVaH264LpConstrainedEncoder(GStreamer):
     encoder_bin = " vah264lpenc ! video/x-h264, profile=constrained-baseline "
     variant = "lp-constrained-baseline"
     api = "VA"
+    file_extension = ".h264"
 
 
 @register_encoder
@@ -155,6 +160,7 @@ class GStreamerVaH265MainEncoder(GStreamer):
     encoder_bin = " vah265enc ! video/x-h265, profile=main "
     variant = "main"
     api = "VA"
+    file_extension = ".h265"
 
 
 @register_encoder
@@ -164,12 +170,14 @@ class GStreamerVaH265LpMainEncoder(GStreamer):
     encoder_bin = " vah265lpenc ! video/x-h265, profile=main "
     variant = "lp-main"
     api = "VA"
+    file_extension = ".h265"
 
 
 @register_encoder
 class GStreamerVaVp9LpEncoder(GStreamer):
     """GStreamer VP9 low power VA encoder"""
     codec = Codec.VP9
-    encoder_bin = " vavp9lpenc ! video/x-vp9 "
+    encoder_bin = " vavp9lpenc ! video/x-vp9 ! webmmux"
     variant = "lp"
     api = "VA"
+    file_extension = ".webm"

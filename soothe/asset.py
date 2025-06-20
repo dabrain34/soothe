@@ -31,12 +31,16 @@ class Asset:
             source: str,
             checksum: str,
             filename: str,
+            width: int,
+            height: int,
     ):
         # JSON members
         self.name = name
         self.source = source
         self.checksum = checksum
         self.filename = filename
+        self.width = width
+        self.height = height
 
         # Not in JSON
         self.test_time = 0.0

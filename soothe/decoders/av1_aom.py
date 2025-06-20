@@ -1,8 +1,9 @@
+"""libaom AV1 reference decoder"""
 # Soothe - testing framework for encoders quality
 # Copyright (C) 2020, Fluendo, S.A.
 #  Author: Pablo Marcos Oltra <pmarcos@fluendo.com>, Fluendo, S.A.
-# Copyright (C) 2025, Igalia, S.L.
-#  Author: Victor Jaquez <vjaquez@igalia.com>
+# Copyright (C) 2026, Igalia, S.L.
+#  Author: Stéphane Cerveau <scerveau@igalia.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public License
@@ -17,29 +18,17 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library. If not, see <https://www.gnu.org/licenses/>.
 
-"""Codec module"""
-
-from enum import Enum
-
-
-class Codec(Enum):
-    """Codec type"""
-
-    NONE = "None"
-    DUMMY = "Dummy"
-    H264 = "H.264"
-    H265 = "H.265"
-    VP9 = "VP9"
-    AV1 = "AV1"
-
-    def __str__(self) -> str:
-        return self.value
+from ..codec import Codec
+from ..decoder import register_decoder
+from .webm import WebMDecoder
 
 
-class OutputFormat(Enum):
-    """Output format"""
+@register_decoder
+class AV1AOMDecoder(WebMDecoder):
+    """libaom AV1 reference decoder implementation"""
 
-    NONE = "None"
-    YUV420P = "yuv420p"
-    YUV420P10LE = "yuv420p10le"
-    UNKNOWN = "Unknown"
+    name = "libaom-AV1"
+    description = "libaom AV1 reference decoder"
+    binary = "aomdec"
+    codec = Codec.AV1
+    is_reference = True
