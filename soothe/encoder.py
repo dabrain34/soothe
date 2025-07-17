@@ -37,6 +37,7 @@ class Encoder(NamedClass):
     description: str = ""
     binary: str = ""
     file_extension = ".bin"
+    is_reference: bool = False
 
     def __init__(self) -> None:
         if self.binary:

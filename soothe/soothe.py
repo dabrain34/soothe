@@ -257,6 +257,8 @@ class Soothe:
         print('\nList of available encoders:')
         for encoder in ENCODERS:
             string = f'{encoder}'
+            if hasattr(encoder, 'is_reference') and encoder.is_reference:
+                string += ' [REFERENCE]'
             if check:
                 string += ' … ' + (
                     '✓' if encoder.check(verbose) else '𐄂'

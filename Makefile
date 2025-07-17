@@ -1,5 +1,6 @@
 CONTRIB_DIR=contrib
 DECODERS_DIR=decoders
+ENCODERS_DIR=encoders
 SOOTHE=python3 ./soothe.py
 CMAKE_GENERATOR=Unix Makefiles
 
@@ -15,9 +16,9 @@ check: ## check that very basic tests run
 	$(SOOTHE) run -e dummy
 
 
-create_dirs=mkdir -p $(CONTRIB_DIR) $(DECODERS_DIR)
+create_dirs=mkdir -p $(CONTRIB_DIR) $(DECODERS_DIR) $(ENCODERS_DIR)
 
-all_reference_decoders: h264_reference_decoder h265_reference_decoder av1_reference_decoder vp9_reference_decoder  ## build all reference decoders
+all_reference_decoders: h264_reference_decoder h265_reference_decoder av1_reference_codec vp9_reference_codec  ## build all reference decoders
 
 h265_reference_decoder: ## build H.265 reference decoder
 	$(create_dirs)
@@ -33,18 +34,20 @@ h264_reference_decoder: ## build H.264 reference decoder
 	cd $(CONTRIB_DIR)/JM && cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-Wno-stringop-truncation -Wno-stringop-overflow" && $(MAKE) -C build ldecod
 	find $(CONTRIB_DIR)/JM/bin/umake -name "ldecod" -type f -exec cp {} $(DECODERS_DIR)/ \;
 
-av1_reference_decoder: ## build AV1 reference decoder
+av1_reference_codec: ## build AV1 reference decoder and encoder
 	$(create_dirs)
 	cd $(CONTRIB_DIR) && git clone --branch=v3.12.1 https://aomedia.googlesource.com/aom --depth=1 || true
 	cd $(CONTRIB_DIR)/aom && git stash && git pull && git stash apply || true
-	cd $(CONTRIB_DIR)/aom && cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release  -Wno-stringop-overflow && $(MAKE) -j -C build aomdec
+	cd $(CONTRIB_DIR)/aom && cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release  -Wno-stringop-overflow && $(MAKE) -j -C build
+	find $(CONTRIB_DIR)/ -name "aomenc" -type f -exec cp {} $(ENCODERS_DIR)/ \;
 	find $(CONTRIB_DIR)/ -name "aomdec" -type f -exec cp {} $(DECODERS_DIR)/ \;
 
-vp9_reference_decoder: ## build VP9 reference decoder
+vp9_reference_codec: ## build VP9 reference decoder and encoder
 	$(create_dirs)
 	cd $(CONTRIB_DIR) && git clone --branch=v1.15.2 https://chromium.googlesource.com/webm/libvpx --depth=1 || true
 	cd $(CONTRIB_DIR)/libvpx && git stash && git pull && git stash apply || true
 	cd $(CONTRIB_DIR)/libvpx && ./configure --disable-unit-tests --enable-vp9 && $(MAKE) -j
+	find $(CONTRIB_DIR)/libvpx -name "vpxenc" -type f -exec cp {} $(ENCODERS_DIR)/ \;
 	find $(CONTRIB_DIR)/libvpx -name "vpxdec" -type f -exec cp {} $(DECODERS_DIR)/ \;
 
 clean: ## remove contrib temporary folder
@@ -53,5 +56,5 @@ clean: ## remove contrib temporary folder
 dbg-%:
 	echo "Value of $* = $($*)"
 
-.PHONY: help all_reference_decoders h264_reference_decoder h265_reference_decoder av1_reference_decoder vp9_reference_decoder \
+.PHONY: help all_reference_decoders h264_reference_decoder h265_reference_decoder av1_reference_codec vp9_reference_codec \
 check install_deps clean
