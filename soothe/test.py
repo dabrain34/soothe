@@ -198,7 +198,8 @@ class Test:  # pylint: disable=too-few-public-methods
                                 decoded_filepath,
                                 y4m_filepath,
                                 asset.width,
-                                asset.height
+                                asset.height,
+                                framerate=asset.framerate
                             )
                             # Delete the YUV file after successful conversion
                             os.remove(decoded_filepath)

@@ -8,7 +8,8 @@
       "checksum": "a4ef8836e546bbef4276346d0b86e81b",
       "filename": "blue_sky_1080p25.y4m",
       "width": 1920,
-      "height": 1080
+      "height": 1080,
+      "framerate": "25:1"
     },
     {
       "name": "four_people",
@@ -16,7 +17,8 @@
       "checksum": "83a3c203dc86fe8ecaa9010ad59f5757",
       "filename": "FourPeople_1280x720_60.y4m",
       "width": 1280,
-      "height": 720
+      "height": 720,
+      "framerate": "60:1"
     },
     {
       "name": "riverbed",
@@ -24,7 +26,8 @@
       "checksum": "9aeb08e3fe02e61d4a1b38be254ef293",
       "filename": "riverbed_1080p25.y4m",
       "width": 1920,
-      "height": 1080
+      "height": 1080,
+      "framerate": "25:1"
     },
     {
       "name": "station2",
@@ -32,7 +35,8 @@
       "checksum": "06be985bf3c2d986ecda3a331928da69",
       "filename": "station2_1080p25.y4m",
       "width": 1920,
-      "height": 1080
+      "height": 1080,
+      "framerate": "25:1"
     }
   ]
 }

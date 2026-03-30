@@ -19,31 +19,25 @@
 
 """Module that holds an asset"""
 
+from dataclasses import dataclass, field
 from typing import Any, Type
 
 
+@dataclass
 class Asset:
     """Asset class"""
 
-    def __init__(
-            self,
-            name: str,
-            source: str,
-            checksum: str,
-            filename: str,
-            width: int,
-            height: int,
-    ):
-        # JSON members
-        self.name = name
-        self.source = source
-        self.checksum = checksum
-        self.filename = filename
-        self.width = width
-        self.height = height
+    # JSON members
+    name: str
+    source: str
+    checksum: str
+    filename: str
+    width: int
+    height: int
+    framerate: str
 
-        # Not in JSON
-        self.test_time = 0.0
+    # Not in JSON
+    test_time: float = field(default=0.0, init=False)
 
     @classmethod
     def from_json(cls: Type["Asset"], data: Any) -> Any:
