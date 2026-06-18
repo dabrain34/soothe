@@ -173,3 +173,11 @@ class GStreamerVaVp9LpEncoder(GStreamer):
     encoder_bin = " vavp9lpenc ! video/x-vp9 "
     variant = "lp"
     api = "VA"
+
+@register_encoder
+class GStreamerVulkanH264Encoder(GStreamer):
+    """GStreamer H264 Vulkan encoder"""
+    codec = Codec.H264
+    encoder_bin = " vulkanupload ! vulkanh264enc ! video/x-h264, profile=main "
+    variant = "main"
+    api = "Vulkan"
